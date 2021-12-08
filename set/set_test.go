@@ -222,9 +222,9 @@ func Test_StringSetEqual(t *testing.T) {
 func Test_StringSetUnion(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
-	s3 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
+	s3 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -248,9 +248,9 @@ func Test_StringSetUnion(t *testing.T) {
 func Test_StringSetDifference(t *testing.T) {
 	const size1 = 15
 	const size2 = 14
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
-	s3 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
+	s3 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -274,8 +274,8 @@ func Test_StringSetDifference(t *testing.T) {
 func Test_StringSetIntersection(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -297,9 +297,9 @@ func Test_StringSetIntersection(t *testing.T) {
 func Test_StringSetSymmetricDifference(t *testing.T) {
 	const size1 = 15
 	const size2 = 14
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
-	s3 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
+	s3 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -323,9 +323,9 @@ func Test_StringSetSymmetricDifference(t *testing.T) {
 func Test_StringSetIsDisjoint(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
-	s3 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
+	s3 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -347,8 +347,8 @@ func Test_StringSetIsDisjoint(t *testing.T) {
 func Test_StringSetIsSubset(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -367,8 +367,8 @@ func Test_StringSetIsSubset(t *testing.T) {
 
 func Test_StringSetPop(t *testing.T) {
 	const size1 = 14
-	s1 := set.NewStringSet()
-	s2 := set.NewStringSet()
+	s1 := NewStringSet()
+	s2 := NewStringSet()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
