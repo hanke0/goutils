@@ -6,7 +6,7 @@ import (
 )
 
 func Test_StringSetAddDeleteContainsLen(t *testing.T) {
-	ss := NewStringSet()
+	ss := NewString()
 	const rangesize = 100
 	for i := 0; i < rangesize; i++ {
 		v := fmt.Sprintf("%d", i)
@@ -37,7 +37,7 @@ func Test_StringSetAddDeleteContainsLen(t *testing.T) {
 }
 
 func Test_IntSetAddDeleteContainsLen(t *testing.T) {
-	ss := NewIntSet()
+	ss := NewInt()
 	const rangesize = 100
 	for i := 0; i < rangesize; i++ {
 		v := i
@@ -68,7 +68,7 @@ func Test_IntSetAddDeleteContainsLen(t *testing.T) {
 }
 
 func Test_Int64SetAddDeleteContainsLen(t *testing.T) {
-	ss := NewInt64Set()
+	ss := NewInt64()
 	const rangesize = 100
 	for i := 0; i < rangesize; i++ {
 		v := int64(i)
@@ -126,7 +126,7 @@ func equal(a, b []interface{}) bool {
 
 func Test_StringSetToSliceRange(t *testing.T) {
 	const size = 14
-	ss := NewStringSet()
+	ss := NewString()
 	sa := make([]interface{}, size)
 	for i := 0; i < size; i++ {
 		v := fmt.Sprintf("%v", i)
@@ -153,7 +153,7 @@ func Test_StringSetToSliceRange(t *testing.T) {
 
 func Test_IntSetToSliceRange(t *testing.T) {
 	const size = 14
-	ss := NewIntSet()
+	ss := NewInt()
 	sa := make([]interface{}, size)
 	for i := 0; i < size; i++ {
 		v := i
@@ -180,7 +180,7 @@ func Test_IntSetToSliceRange(t *testing.T) {
 
 func Test_Int64SetToSliceRange(t *testing.T) {
 	const size = 14
-	ss := NewInt64Set()
+	ss := NewInt64()
 	sa := make([]interface{}, size)
 	for i := 0; i < size; i++ {
 		v := int64(i)
@@ -207,8 +207,8 @@ func Test_Int64SetToSliceRange(t *testing.T) {
 
 func Test_StringSetEqual(t *testing.T) {
 	const size1 = 120
-	s1 := NewStringSet()
-	s2 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -222,9 +222,9 @@ func Test_StringSetEqual(t *testing.T) {
 func Test_StringSetUnion(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := NewStringSet()
-	s2 := NewStringSet()
-	s3 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
+	s3 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -248,9 +248,9 @@ func Test_StringSetUnion(t *testing.T) {
 func Test_StringSetDifference(t *testing.T) {
 	const size1 = 15
 	const size2 = 14
-	s1 := NewStringSet()
-	s2 := NewStringSet()
-	s3 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
+	s3 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -274,8 +274,8 @@ func Test_StringSetDifference(t *testing.T) {
 func Test_StringSetIntersection(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := NewStringSet()
-	s2 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -297,9 +297,9 @@ func Test_StringSetIntersection(t *testing.T) {
 func Test_StringSetSymmetricDifference(t *testing.T) {
 	const size1 = 15
 	const size2 = 14
-	s1 := NewStringSet()
-	s2 := NewStringSet()
-	s3 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
+	s3 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -323,9 +323,9 @@ func Test_StringSetSymmetricDifference(t *testing.T) {
 func Test_StringSetIsDisjoint(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := NewStringSet()
-	s2 := NewStringSet()
-	s3 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
+	s3 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -347,8 +347,8 @@ func Test_StringSetIsDisjoint(t *testing.T) {
 func Test_StringSetIsSubset(t *testing.T) {
 	const size1 = 14
 	const size2 = 15
-	s1 := NewStringSet()
-	s2 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)
@@ -367,8 +367,8 @@ func Test_StringSetIsSubset(t *testing.T) {
 
 func Test_StringSetPop(t *testing.T) {
 	const size1 = 14
-	s1 := NewStringSet()
-	s2 := NewStringSet()
+	s1 := NewString()
+	s2 := NewString()
 	for i := 0; i < size1; i++ {
 		v := fmt.Sprintf("%v", i)
 		s1.Add(v)

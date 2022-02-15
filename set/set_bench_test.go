@@ -6,7 +6,7 @@ import (
 )
 
 func benchmark_StringSet(b *testing.B, size int) {
-	ss := NewStringSet()
+	ss := NewString()
 	for i := 0; i < size; i++ {
 		ss.Add(fmt.Sprintf("%d", i))
 	}

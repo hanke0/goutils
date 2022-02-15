@@ -6,40 +6,42 @@ import (
 
 const smallsize = 12
 
-// StringSet is a set of string.
-type StringSet struct {
+// Strings is a set of strings.
+type Strings struct {
 	small []string
-	data  map[string]bool
+	data  map[string]struct{}
 }
 
-type IntSet struct {
+// Ints is a set of ints.
+type Ints struct {
 	small []int
-	data  map[int]bool
+	data  map[int]struct{}
 }
 
-type Int64Set struct {
+// Int64s is a set of int64s.
+type Int64s struct {
 	small []int64
-	data  map[int64]bool
+	data  map[int64]struct{}
 }
 
-func NewStringSet(s ...string) *StringSet {
-	a := new(StringSet)
+func NewString(s ...string) *Strings {
+	a := new(Strings)
 	for _, ss := range s {
 		a.Add(ss)
 	}
 	return a
 }
 
-func NewIntSet(s ...int) *IntSet {
-	a := new(IntSet)
+func NewInt(s ...int) *Ints {
+	a := new(Ints)
 	for _, ss := range s {
 		a.Add(ss)
 	}
 	return a
 }
 
-func NewInt64Set(s ...int64) *Int64Set {
-	a := new(Int64Set)
+func NewInt64(s ...int64) *Int64s {
+	a := new(Int64s)
 	for _, ss := range s {
 		a.Add(ss)
 	}
@@ -47,7 +49,7 @@ func NewInt64Set(s ...int64) *Int64Set {
 }
 
 // Contains test for membership in set.
-func (s *StringSet) Contains(k string) bool {
+func (s *Strings) Contains(k string) bool {
 	for _, ss := range s.small {
 		if ss == k {
 			return true
@@ -56,11 +58,12 @@ func (s *StringSet) Contains(k string) bool {
 	if s.data == nil {
 		return false
 	}
-	return s.data[k]
+	_, ok := s.data[k]
+	return ok
 }
 
 // Contains test for membership in set.
-func (s *IntSet) Contains(k int) bool {
+func (s *Ints) Contains(k int) bool {
 	for _, ss := range s.small {
 		if ss == k {
 			return true
@@ -69,11 +72,12 @@ func (s *IntSet) Contains(k int) bool {
 	if s.data == nil {
 		return false
 	}
-	return s.data[k]
+	_, ok := s.data[k]
+	return ok
 }
 
 // Contains test for membership in set.
-func (s *Int64Set) Contains(k int64) bool {
+func (s *Int64s) Contains(k int64) bool {
 	for _, ss := range s.small {
 		if ss == k {
 			return true
@@ -82,11 +86,12 @@ func (s *Int64Set) Contains(k int64) bool {
 	if s.data == nil {
 		return false
 	}
-	return s.data[k]
+	_, ok := s.data[k]
+	return ok
 }
 
 // Add elements into set, return true if really added.
-func (s *StringSet) Add(k string) bool {
+func (s *Strings) Add(k string) bool {
 	if s.Contains(k) {
 		return false
 	}
@@ -98,14 +103,14 @@ func (s *StringSet) Add(k string) bool {
 		return true
 	}
 	if s.data == nil {
-		s.data = map[string]bool{}
+		s.data = map[string]struct{}{}
 	}
-	s.data[k] = true
+	s.data[k] = struct{}{}
 	return true
 }
 
 // Add elements into set, return true if really added.
-func (s *IntSet) Add(k int) bool {
+func (s *Ints) Add(k int) bool {
 	if s.Contains(k) {
 		return false
 	}
@@ -117,14 +122,14 @@ func (s *IntSet) Add(k int) bool {
 		return true
 	}
 	if s.data == nil {
-		s.data = map[int]bool{}
+		s.data = map[int]struct{}{}
 	}
-	s.data[k] = true
+	s.data[k] = struct{}{}
 	return true
 }
 
 // Add elements into set, return true if really added.
-func (s *Int64Set) Add(k int64) bool {
+func (s *Int64s) Add(k int64) bool {
 	if s.Contains(k) {
 		return false
 	}
@@ -136,31 +141,31 @@ func (s *Int64Set) Add(k int64) bool {
 		return true
 	}
 	if s.data == nil {
-		s.data = map[int64]bool{}
+		s.data = map[int64]struct{}{}
 	}
-	s.data[k] = true
+	s.data[k] = struct{}{}
 	return true
 }
 
 // Delete element from set.
-func (s *StringSet) Delete(k string) {
+func (s *Strings) Delete(k string) {
 	delete(s.data, k)
 	s.deletesmall(k)
 }
 
 // Delete element from set.
-func (s *IntSet) Delete(k int) {
+func (s *Ints) Delete(k int) {
 	delete(s.data, k)
 	s.deletesmall(k)
 }
 
 // Delete element from set.
-func (s *Int64Set) Delete(k int64) {
+func (s *Int64s) Delete(k int64) {
 	delete(s.data, k)
 	s.deletesmall(k)
 }
 
-func (s *StringSet) deletesmall(k string) {
+func (s *Strings) deletesmall(k string) {
 	if len(s.small) == 0 {
 		return
 	}
@@ -181,7 +186,7 @@ func (s *StringSet) deletesmall(k string) {
 	s.small = s.small[:len(s.small)-1]
 }
 
-func (s *IntSet) deletesmall(k int) {
+func (s *Ints) deletesmall(k int) {
 	if len(s.small) == 0 {
 		return
 	}
@@ -202,7 +207,7 @@ func (s *IntSet) deletesmall(k int) {
 	s.small = s.small[:len(s.small)-1]
 }
 
-func (s *Int64Set) deletesmall(k int64) {
+func (s *Int64s) deletesmall(k int64) {
 	if len(s.small) == 0 {
 		return
 	}
@@ -224,40 +229,40 @@ func (s *Int64Set) deletesmall(k int64) {
 }
 
 // Clear all element from set.
-func (s *StringSet) Clear() {
+func (s *Strings) Clear() {
 	s.data = nil
 	s.small = nil
 }
 
 // Clear all element from set.
-func (s *IntSet) Clear() {
+func (s *Ints) Clear() {
 	s.data = nil
 	s.small = nil
 }
 
 // Clear all element from set.
-func (s *Int64Set) Clear() {
+func (s *Int64s) Clear() {
 	s.data = nil
 	s.small = nil
 }
 
 // Len return the number of elements in set.
-func (s *StringSet) Len() int {
+func (s *Strings) Len() int {
 	return len(s.data) + len(s.small)
 }
 
 // Len return the number of elements in set.
-func (s *IntSet) Len() int {
+func (s *Ints) Len() int {
 	return len(s.data) + len(s.small)
 }
 
 // Len return the number of elements in set.
-func (s *Int64Set) Len() int {
+func (s *Int64s) Len() int {
 	return len(s.data) + len(s.small)
 }
 
 // Range the elements in set using the given funcition.
-func (s *StringSet) Range(f func(k string) bool) {
+func (s *Strings) Range(f func(k string) bool) {
 	for k := range s.data {
 		if !f(k) {
 			return
@@ -271,7 +276,7 @@ func (s *StringSet) Range(f func(k string) bool) {
 }
 
 // Range the elements in set using the given funcition.
-func (s *IntSet) Range(f func(k int) bool) {
+func (s *Ints) Range(f func(k int) bool) {
 	for k := range s.data {
 		if !f(k) {
 			return
@@ -285,7 +290,7 @@ func (s *IntSet) Range(f func(k int) bool) {
 }
 
 // Range the elements in set using the given funcition.
-func (s *Int64Set) Range(f func(k int64) bool) {
+func (s *Int64s) Range(f func(k int64) bool) {
 	for k := range s.data {
 		if !f(k) {
 			return
@@ -299,7 +304,7 @@ func (s *Int64Set) Range(f func(k int64) bool) {
 }
 
 // ToSlice return a slice represents the set.
-func (s *StringSet) ToSlice() []string {
+func (s *Strings) ToSlice() []string {
 	a := make([]string, 0, s.Len())
 	s.Range(func(k string) bool {
 		a = append(a, k)
@@ -309,7 +314,7 @@ func (s *StringSet) ToSlice() []string {
 }
 
 // ToSlice return a slice represents the set.
-func (s *IntSet) ToSlice() []int {
+func (s *Ints) ToSlice() []int {
 	a := make([]int, 0, s.Len())
 	s.Range(func(k int) bool {
 		a = append(a, k)
@@ -319,7 +324,7 @@ func (s *IntSet) ToSlice() []int {
 }
 
 // ToSlice return a slice represents the set.
-func (s *Int64Set) ToSlice() []int64 {
+func (s *Int64s) ToSlice() []int64 {
 	a := make([]int64, 0, s.Len())
 	s.Range(func(k int64) bool {
 		a = append(a, k)
@@ -328,27 +333,27 @@ func (s *Int64Set) ToSlice() []int64 {
 	return a
 }
 
-func (s *StringSet) String() string {
+func (s *Strings) String() string {
 	return fmt.Sprintf("%+v", s.ToSlice())
 }
 
-func (s *IntSet) String() string {
+func (s *Ints) String() string {
 	return fmt.Sprintf("%+v", s.ToSlice())
 }
 
-func (s *Int64Set) String() string {
+func (s *Int64s) String() string {
 	return fmt.Sprintf("%+v", s.ToSlice())
 }
 
 // Clone the set.
-func (s *StringSet) Clone() *StringSet {
-	n := NewStringSet()
+func (s *Strings) Clone() *Strings {
+	n := NewString()
 	if s.small != nil {
 		n.small = make([]string, len(s.small))
 		copy(n.small, s.small)
 	}
 	if s.data != nil {
-		n.data = map[string]bool{}
+		n.data = map[string]struct{}{}
 		for k, v := range s.data {
 			n.data[k] = v
 		}
@@ -357,14 +362,14 @@ func (s *StringSet) Clone() *StringSet {
 }
 
 // Clone the set.
-func (s *IntSet) Clone() *IntSet {
-	n := NewIntSet()
+func (s *Ints) Clone() *Ints {
+	n := NewInt()
 	if s.small != nil {
 		n.small = make([]int, len(s.small))
 		copy(n.small, s.small)
 	}
 	if s.data != nil {
-		n.data = map[int]bool{}
+		n.data = map[int]struct{}{}
 		for k, v := range s.data {
 			n.data[k] = v
 		}
@@ -373,14 +378,14 @@ func (s *IntSet) Clone() *IntSet {
 }
 
 // Clone the set.
-func (s *Int64Set) Clone() *Int64Set {
-	n := NewInt64Set()
+func (s *Int64s) Clone() *Int64s {
+	n := NewInt64()
 	if s.small != nil {
 		n.small = make([]int64, len(s.small))
 		copy(n.small, s.small)
 	}
 	if s.data != nil {
-		n.data = map[int64]bool{}
+		n.data = map[int64]struct{}{}
 		for k, v := range s.data {
 			n.data[k] = v
 		}
@@ -389,7 +394,7 @@ func (s *Int64Set) Clone() *Int64Set {
 }
 
 // UnionUpdate the set, add the elements from other.
-func (s *StringSet) UnionUpdate(other *StringSet) {
+func (s *Strings) UnionUpdate(other *Strings) {
 	other.Range(func(k string) bool {
 		s.Add(k)
 		return true
@@ -397,7 +402,7 @@ func (s *StringSet) UnionUpdate(other *StringSet) {
 }
 
 // UnionUpdate the set, add the elements from other.
-func (s *IntSet) UnionUpdate(other *IntSet) {
+func (s *Ints) UnionUpdate(other *Ints) {
 	other.Range(func(k int) bool {
 		s.Add(k)
 		return true
@@ -405,7 +410,7 @@ func (s *IntSet) UnionUpdate(other *IntSet) {
 }
 
 // UnionUpdate the set, add the elements from other.
-func (s *Int64Set) UnionUpdate(other *Int64Set) {
+func (s *Int64s) UnionUpdate(other *Int64s) {
 	other.Range(func(k int64) bool {
 		s.Add(k)
 		return true
@@ -413,7 +418,7 @@ func (s *Int64Set) UnionUpdate(other *Int64Set) {
 }
 
 // Union return a new set with elements from the set and the other.
-func (s *StringSet) Union(other *StringSet) *StringSet {
+func (s *Strings) Union(other *Strings) *Strings {
 	a := s.Clone()
 	other.Range(func(k string) bool {
 		a.Add(k)
@@ -423,7 +428,7 @@ func (s *StringSet) Union(other *StringSet) *StringSet {
 }
 
 // Union return a new set with elements from the set and other.
-func (s *IntSet) Union(other *IntSet) *IntSet {
+func (s *Ints) Union(other *Ints) *Ints {
 	a := s.Clone()
 	other.Range(func(k int) bool {
 		a.Add(k)
@@ -433,7 +438,7 @@ func (s *IntSet) Union(other *IntSet) *IntSet {
 }
 
 // Union return a new set with elements from the set and other.
-func (s *Int64Set) Union(other *Int64Set) *Int64Set {
+func (s *Int64s) Union(other *Int64s) *Int64s {
 	a := s.Clone()
 	other.Range(func(k int64) bool {
 		a.Add(k)
@@ -443,7 +448,7 @@ func (s *Int64Set) Union(other *Int64Set) *Int64Set {
 }
 
 // DifferenceUpdate the set, removing elements found in other.
-func (s *StringSet) DifferenceUpdate(other *StringSet) {
+func (s *Strings) DifferenceUpdate(other *Strings) {
 	other.Range(func(k string) bool {
 		if s.Contains(k) {
 			s.Delete(k)
@@ -453,7 +458,7 @@ func (s *StringSet) DifferenceUpdate(other *StringSet) {
 }
 
 // DifferenceUpdate the set, removing elements found in other.
-func (s *IntSet) DifferenceUpdate(other *IntSet) {
+func (s *Ints) DifferenceUpdate(other *Ints) {
 	other.Range(func(k int) bool {
 		if s.Contains(k) {
 			s.Delete(k)
@@ -463,7 +468,7 @@ func (s *IntSet) DifferenceUpdate(other *IntSet) {
 }
 
 // DifferenceUpdate the set, removing elements found in other.
-func (s *Int64Set) DifferenceUpdate(other *Int64Set) {
+func (s *Int64s) DifferenceUpdate(other *Int64s) {
 	other.Range(func(k int64) bool {
 		if s.Contains(k) {
 			s.Delete(k)
@@ -473,7 +478,7 @@ func (s *Int64Set) DifferenceUpdate(other *Int64Set) {
 }
 
 // Difference return a new set with elements in the set that are not in other.
-func (s *StringSet) Difference(other *StringSet) *StringSet {
+func (s *Strings) Difference(other *Strings) *Strings {
 	a := s.Clone()
 	other.Range(func(k string) bool {
 		if a.Contains(k) {
@@ -485,7 +490,7 @@ func (s *StringSet) Difference(other *StringSet) *StringSet {
 }
 
 // Difference return a new set with elements in the set that are not in other.
-func (s *IntSet) Difference(other *IntSet) *IntSet {
+func (s *Ints) Difference(other *Ints) *Ints {
 	a := s.Clone()
 	other.Range(func(k int) bool {
 		if a.Contains(k) {
@@ -497,7 +502,7 @@ func (s *IntSet) Difference(other *IntSet) *IntSet {
 }
 
 // Difference return a new set with elements in the set that are not in other.
-func (s *Int64Set) Difference(other *Int64Set) *Int64Set {
+func (s *Int64s) Difference(other *Int64s) *Int64s {
 	a := s.Clone()
 	other.Range(func(k int64) bool {
 		if a.Contains(k) {
@@ -509,7 +514,7 @@ func (s *Int64Set) Difference(other *Int64Set) *Int64Set {
 }
 
 // IntersectionUpdate the set, keeping only elements found in it and other.
-func (s *StringSet) IntersectionUpdate(other *StringSet) {
+func (s *Strings) IntersectionUpdate(other *Strings) {
 	removed := make([]string, 0, s.Len())
 	other.Range(func(k string) bool {
 		if !s.Contains(k) {
@@ -529,7 +534,7 @@ func (s *StringSet) IntersectionUpdate(other *StringSet) {
 }
 
 // IntersectionUpdate the set, keeping only elements found in it and other.
-func (s *IntSet) IntersectionUpdate(other *IntSet) {
+func (s *Ints) IntersectionUpdate(other *Ints) {
 	removed := make([]int, 0, s.Len())
 	other.Range(func(k int) bool {
 		if !s.Contains(k) {
@@ -543,7 +548,7 @@ func (s *IntSet) IntersectionUpdate(other *IntSet) {
 }
 
 // IntersectionUpdate the set, keeping only elements found in it and other.
-func (s *Int64Set) IntersectionUpdate(other *Int64Set) {
+func (s *Int64s) IntersectionUpdate(other *Int64s) {
 	removed := make([]int64, 0, s.Len())
 	other.Range(func(k int64) bool {
 		if !s.Contains(k) {
@@ -557,28 +562,28 @@ func (s *Int64Set) IntersectionUpdate(other *Int64Set) {
 }
 
 // Intersection return a new set with elements common to the set and other.
-func (s *StringSet) Intersection(other *StringSet) *StringSet {
+func (s *Strings) Intersection(other *Strings) *Strings {
 	a := s.Clone()
 	a.IntersectionUpdate(other)
 	return a
 }
 
 // Intersection return a new set with elements common to the set and other.
-func (s *IntSet) Intersection(other *IntSet) *IntSet {
+func (s *Ints) Intersection(other *Ints) *Ints {
 	a := s.Clone()
 	a.IntersectionUpdate(other)
 	return a
 }
 
 // Intersection return a new set with elements common to the set and other.
-func (s *Int64Set) Intersection(other *Int64Set) *Int64Set {
+func (s *Int64s) Intersection(other *Int64s) *Int64s {
 	a := s.Clone()
 	a.IntersectionUpdate(other)
 	return a
 }
 
 // SymmetricDifferenceUpdate the set, keeping only elements found in either set, but not in both.
-func (s *StringSet) SymmetricDifferenceUpdate(other *StringSet) {
+func (s *Strings) SymmetricDifferenceUpdate(other *Strings) {
 	var add []string
 	var remove []string
 	other.Range(func(k string) bool {
@@ -604,7 +609,7 @@ func (s *StringSet) SymmetricDifferenceUpdate(other *StringSet) {
 }
 
 // SymmetricDifferenceUpdate the set, keeping only elements found in either set, but not in both.
-func (s *IntSet) SymmetricDifferenceUpdate(other *IntSet) {
+func (s *Ints) SymmetricDifferenceUpdate(other *Ints) {
 	var add []int
 	var remove []int
 	other.Range(func(k int) bool {
@@ -630,7 +635,7 @@ func (s *IntSet) SymmetricDifferenceUpdate(other *IntSet) {
 }
 
 // SymmetricDifferenceUpdate the set, keeping only elements found in either set, but not in both.
-func (s *Int64Set) SymmetricDifferenceUpdate(other *Int64Set) {
+func (s *Int64s) SymmetricDifferenceUpdate(other *Int64s) {
 	var add []int64
 	var remove []int64
 	other.Range(func(k int64) bool {
@@ -656,21 +661,21 @@ func (s *Int64Set) SymmetricDifferenceUpdate(other *Int64Set) {
 }
 
 //SymmetricDifference return a new set with elements in either the set or other but not both.
-func (s *StringSet) SymmetricDifference(other *StringSet) *StringSet {
+func (s *Strings) SymmetricDifference(other *Strings) *Strings {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)
 	return a
 }
 
 //SymmetricDifference return a new set with elements in either the set or other but not both.
-func (s *IntSet) SymmetricDifference(other *IntSet) *IntSet {
+func (s *Ints) SymmetricDifference(other *Ints) *Ints {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)
 	return a
 }
 
 //SymmetricDifference return a new set with elements in either the set or other but not both.
-func (s *Int64Set) SymmetricDifference(other *Int64Set) *Int64Set {
+func (s *Int64s) SymmetricDifference(other *Int64s) *Int64s {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)
 	return a
@@ -678,7 +683,7 @@ func (s *Int64Set) SymmetricDifference(other *Int64Set) *Int64Set {
 
 // IsDisjoint return True if the set has no elements in common with other.
 // Sets are disjoint if and only if their intersection is the empty set.
-func (s *StringSet) IsDisjoint(other *StringSet) bool {
+func (s *Strings) IsDisjoint(other *Strings) bool {
 	out := true
 	other.Range(func(k string) bool {
 		if s.Contains(k) {
@@ -702,7 +707,7 @@ func (s *StringSet) IsDisjoint(other *StringSet) bool {
 
 // IsDisjoint return true if the set has no elements in common with other.
 // Sets are disjoint if and only if their intersection is the empty set.
-func (s *IntSet) IsDisjoint(other *IntSet) bool {
+func (s *Ints) IsDisjoint(other *Ints) bool {
 	out := true
 	other.Range(func(k int) bool {
 		if s.Contains(k) {
@@ -726,7 +731,7 @@ func (s *IntSet) IsDisjoint(other *IntSet) bool {
 
 // IsDisjoint return True if the set has no elements in common with other.
 // Sets are disjoint if and only if their intersection is the empty set.
-func (s *Int64Set) IsDisjoint(other *Int64Set) bool {
+func (s *Int64s) IsDisjoint(other *Int64s) bool {
 	out := true
 	other.Range(func(k int64) bool {
 		if s.Contains(k) {
@@ -749,7 +754,7 @@ func (s *Int64Set) IsDisjoint(other *Int64Set) bool {
 }
 
 // IsSubset test whether every element in the set is in other.
-func (s *StringSet) IsSubset(other *StringSet) bool {
+func (s *Strings) IsSubset(other *Strings) bool {
 	if s.Len() > other.Len() {
 		return false
 	}
@@ -765,7 +770,7 @@ func (s *StringSet) IsSubset(other *StringSet) bool {
 }
 
 // IsSubset test whether every element in the set is in other.
-func (s *IntSet) IsSubset(other *IntSet) bool {
+func (s *Ints) IsSubset(other *Ints) bool {
 	if s.Len() > other.Len() {
 		return false
 	}
@@ -781,7 +786,7 @@ func (s *IntSet) IsSubset(other *IntSet) bool {
 }
 
 // IsSubset test whether every element in the set is in other.
-func (s *Int64Set) IsSubset(other *Int64Set) bool {
+func (s *Int64s) IsSubset(other *Int64s) bool {
 	if s.Len() > other.Len() {
 		return false
 	}
@@ -797,37 +802,37 @@ func (s *Int64Set) IsSubset(other *Int64Set) bool {
 }
 
 // IsSuperset test whether every element in other is in the set.
-func (s *StringSet) IsSuperset(other *StringSet) bool {
+func (s *Strings) IsSuperset(other *Strings) bool {
 	return other.IsSubset(s)
 }
 
 // IsSuperset test whether every element in other is in the set.
-func (s *IntSet) IsSuperset(other *IntSet) bool {
+func (s *Ints) IsSuperset(other *Ints) bool {
 	return other.IsSubset(s)
 }
 
 // IsSuperset test whether every element in other is in the set.
-func (s *Int64Set) IsSuperset(other *Int64Set) bool {
+func (s *Int64s) IsSuperset(other *Int64s) bool {
 	return other.IsSubset(s)
 }
 
 // Equal test whether the set and other have same elements
-func (s *StringSet) Equal(other *StringSet) bool {
+func (s *Strings) Equal(other *Strings) bool {
 	return other.IsSubset(s) && s.Len() == other.Len()
 }
 
 // Equal test whether the set and other have same elements
-func (s *IntSet) Equal(other *IntSet) bool {
+func (s *Ints) Equal(other *Ints) bool {
 	return other.IsSubset(s) && s.Len() == other.Len()
 }
 
 // Equal test whether the set and other have same elements
-func (s *Int64Set) Equal(other *Int64Set) bool {
+func (s *Int64s) Equal(other *Int64s) bool {
 	return other.IsSubset(s) && s.Len() == other.Len()
 }
 
 // Pop remove and return an arbitrary element from the set.
-func (s *StringSet) Pop() (data string, ok bool) {
+func (s *Strings) Pop() (data string, ok bool) {
 	s.Range(func(k string) bool {
 		ok = true
 		data = k
@@ -840,7 +845,7 @@ func (s *StringSet) Pop() (data string, ok bool) {
 }
 
 // Pop remove and return an arbitrary element from the set.
-func (s *IntSet) Pop() (data int, ok bool) {
+func (s *Ints) Pop() (data int, ok bool) {
 	s.Range(func(k int) bool {
 		ok = true
 		data = k
@@ -853,7 +858,7 @@ func (s *IntSet) Pop() (data int, ok bool) {
 }
 
 // Pop remove and return an arbitrary element from the set.
-func (s *Int64Set) Pop() (data int64, ok bool) {
+func (s *Int64s) Pop() (data int64, ok bool) {
 	s.Range(func(k int64) bool {
 		ok = true
 		data = k
