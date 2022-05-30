@@ -6,7 +6,7 @@ import (
 	"unsafe"
 )
 
-// Isin return true if the elemment is in the slice.
+// Isin return true if the element is in the slice.
 func Isin(s []string, elem string) bool {
 	for _, ss := range s {
 		if ss == elem {
