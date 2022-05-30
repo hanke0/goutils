@@ -54,7 +54,7 @@ func ToJSON(o interface{}) string {
 }
 
 // ToPrettyJson like ToJSON with pretty output
-func ToPrettyJson(o interface{}) string {
+func ToPrettyJson(o interface{}) string { // nolint: revive
 	e := getjsonencoder()
 	defer putjsonencoder(e)
 	e.setpretty()
@@ -67,3 +67,6 @@ func ToPrettyJson(o interface{}) string {
 	}
 	return e.bs.String()
 }
+
+// ToPrettyJSON likes ToJSON with pretty output
+var ToPrettyJSON = ToPrettyJson

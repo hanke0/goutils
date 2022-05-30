@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func benchmark_StringSet(b *testing.B, size int) {
+func benchmarkStringSet(b *testing.B, size int) {
 	ss := NewString()
 	for i := 0; i < size; i++ {
 		ss.Add(fmt.Sprintf("%d", i))
@@ -15,7 +15,7 @@ func benchmark_StringSet(b *testing.B, size int) {
 		_ = ss.Contains(fmt.Sprintf("%d", i))
 	}
 }
-func benchmark_MapSet(b *testing.B, size int) {
+func benchmarkMapSet(b *testing.B, size int) {
 	a := make(map[string]bool)
 	for i := 0; i < size; i++ {
 		a[fmt.Sprintf("%d", i)] = true
@@ -26,17 +26,17 @@ func benchmark_MapSet(b *testing.B, size int) {
 	}
 }
 
-func Benchmark_StringSet24(b *testing.B) {
-	benchmark_StringSet(b, 24)
+func BenchmarkStringSet24(b *testing.B) {
+	benchmarkStringSet(b, 24)
 }
 
-func Benchmark_MapSet24(b *testing.B) {
-	benchmark_MapSet(b, 24)
+func BenchmarkMapSet24(b *testing.B) {
+	benchmarkMapSet(b, 24)
 }
 
-func Benchmark_StringSet12(b *testing.B) {
-	benchmark_StringSet(b, 12)
+func BenchmarkStringSet12(b *testing.B) {
+	benchmarkStringSet(b, 12)
 }
-func Benchmark_MapSet12(b *testing.B) {
-	benchmark_MapSet(b, 12)
+func BenchmarkMapSet12(b *testing.B) {
+	benchmarkMapSet(b, 12)
 }

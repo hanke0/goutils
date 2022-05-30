@@ -44,7 +44,7 @@ func (m *MultiErr) Get(id string) (err error) {
 }
 
 // GetE gets the id's error and a bool represent if id exists.
-func (m *MultiErr) GetE(id string) (err error, ok bool) {
+func (m *MultiErr) GetE(id string) (err error, ok bool) { // nolint: revive
 	m.mu.Lock()
 	if m.errs != nil {
 		err, ok = m.errs[id]

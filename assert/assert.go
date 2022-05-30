@@ -1,4 +1,4 @@
-// package assert provide function useful for unit testing.
+// Package assert provide function useful for unit testing.
 package assert
 
 import (
@@ -11,6 +11,7 @@ type tHelper interface {
 	Helper()
 }
 
+// T is a test interface.
 type T interface {
 	Errorf(format string, o ...interface{})
 }
@@ -26,6 +27,7 @@ func tostring(o interface{}) string {
 	return string(data)
 }
 
+// Equal asset if target is equal to wanted.
 func Equal(t T, got interface{}, want interface{}) bool {
 	if !reflect.DeepEqual(got, want) {
 		if h, ok := t.(tHelper); ok {
@@ -37,6 +39,7 @@ func Equal(t T, got interface{}, want interface{}) bool {
 	return true
 }
 
+// NotEqual assets if target is not equal to want.
 func NotEqual(t T, got interface{}, want interface{}) bool {
 	if reflect.DeepEqual(got, want) {
 		if h, ok := t.(tHelper); ok {
@@ -48,6 +51,7 @@ func NotEqual(t T, got interface{}, want interface{}) bool {
 	return true
 }
 
+// Nil assets target is nil.
 func Nil(t T, got interface{}) bool {
 	if got == nil {
 		return true
@@ -59,6 +63,7 @@ func Nil(t T, got interface{}) bool {
 	return false
 }
 
+// WantError assets if got is error when want is true.
 func WantError(t T, got error, want bool) bool {
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
@@ -69,6 +74,7 @@ func WantError(t T, got error, want bool) bool {
 	return Nil(t, got)
 }
 
+// NotNil assert target is not nil.
 func NotNil(t T, got interface{}) bool {
 	if got != nil {
 		return true
@@ -80,6 +86,7 @@ func NotNil(t T, got interface{}) bool {
 	return false
 }
 
+// True asset target is boolean true.
 func True(t T, got bool) bool {
 	if got {
 		return true
@@ -91,6 +98,7 @@ func True(t T, got bool) bool {
 	return false
 }
 
+// False asset target is boolean false.
 func False(t T, got bool) bool {
 	if !got {
 		return true

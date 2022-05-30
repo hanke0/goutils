@@ -24,6 +24,7 @@ type Int64s struct {
 	data  map[int64]struct{}
 }
 
+// NewString creates a string set.
 func NewString(s ...string) *Strings {
 	a := new(Strings)
 	for _, ss := range s {
@@ -32,6 +33,7 @@ func NewString(s ...string) *Strings {
 	return a
 }
 
+// NewInt creates a int set.
 func NewInt(s ...int) *Ints {
 	a := new(Ints)
 	for _, ss := range s {
@@ -40,6 +42,7 @@ func NewInt(s ...int) *Ints {
 	return a
 }
 
+// NewInt64 creates a int64 set.
 func NewInt64(s ...int64) *Int64s {
 	a := new(Int64s)
 	for _, ss := range s {
@@ -660,21 +663,21 @@ func (s *Int64s) SymmetricDifferenceUpdate(other *Int64s) {
 	}
 }
 
-//SymmetricDifference return a new set with elements in either the set or other but not both.
+// SymmetricDifference return a new set with elements in either the set or other but not both.
 func (s *Strings) SymmetricDifference(other *Strings) *Strings {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)
 	return a
 }
 
-//SymmetricDifference return a new set with elements in either the set or other but not both.
+// SymmetricDifference return a new set with elements in either the set or other but not both.
 func (s *Ints) SymmetricDifference(other *Ints) *Ints {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)
 	return a
 }
 
-//SymmetricDifference return a new set with elements in either the set or other but not both.
+// SymmetricDifference return a new set with elements in either the set or other but not both.
 func (s *Int64s) SymmetricDifference(other *Int64s) *Int64s {
 	a := s.Clone()
 	a.SymmetricDifferenceUpdate(other)

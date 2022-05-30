@@ -34,7 +34,7 @@ func (s *sizedPool) Get() []byte {
 		if a == nil {
 			continue
 		}
-		b := a.([]byte)
+		b := a.([]byte) // nolint: errcheck
 		if cap(b) != 0 {
 			return b[:0]
 		}
@@ -62,7 +62,7 @@ func (s *sizedPool) GetN(n int) (r []byte) {
 		if a == nil {
 			continue
 		}
-		r = a.([]byte)
+		r = a.([]byte) // nolint: errcheck
 		if cap(r) > size {
 			r = r[:n]
 			return
@@ -104,7 +104,7 @@ func Get() []byte {
 	return defaultPool.Get()
 }
 
-// Get a n length bytes slice
+// GetN gets a n length bytes slice
 func GetN(n int) []byte {
 	return defaultPool.GetN(n)
 }
@@ -114,6 +114,7 @@ func Put(b []byte) {
 	defaultPool.Put(b)
 }
 
+// Copy bytes.
 func Copy(b []byte) []byte {
 	return defaultPool.Copy(b)
 }
