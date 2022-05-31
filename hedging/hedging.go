@@ -14,7 +14,12 @@ type result struct {
 
 // Do performs a hedging calls from primary and fallback.
 //
-// Like
+// Hedging call means that when the function is called,
+// if the primary function fails or the execution times out,
+// the fallback function is executed.
+// It returns the first success results between the primary function and
+// fallback function.
+// If both fail, the error result of the primary function is returned.
 func Do(hedgingAfter time.Duration, primary, fallback func() (interface{}, error), opt ...Option) (interface{}, error) {
 	if hedgingAfter <= 0 {
 		// calls step by step when no hedging start duration.
