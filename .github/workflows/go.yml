@@ -2,21 +2,27 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
+    branches: ["*"]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ["1.16", "1.17", "1.18"]
+        redis: [4, 5, 6]
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18
-
-    - name: Test
-      run: go test -covermode=count -cover -coverpkg=./... ./...
+      - name: Set up Go ${{ matrix.go }}
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.go }}
+      - name: Start Redis ${{ matrix.redis }}
+        uses: supercharge/redis-github-action@1.4.0
+        with:
+          redis-version: ${{ matrix.redis }}
+      - name: Test
+        run: go test -v -covermode=count -cover -coverpkg=./... ./...
