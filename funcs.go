@@ -28,7 +28,7 @@ func InplaceSliceToString(s []byte) string {
 
 // ShortcutUTF8 return a valid UTF-8 string with at most `max` + len(suffix) characters.
 //
-// If `s` has more than `max` charactors, cuts it to max and add `suffix`.
+// If `s` has more than `max` characters, cuts it to max and add `suffix`.
 // Multibyte characters are handled resonable.
 // If `max` is lower than 0, then return `s`.
 func ShortcutUTF8(s string, max int, suffix string) string {

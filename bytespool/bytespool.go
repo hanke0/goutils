@@ -80,7 +80,7 @@ func (s *sizedPool) Copy(b []byte) []byte {
 	return out
 }
 
-// NewSizedPool return a Pool object that get and retrive bytes slice
+// NewSizedPool return a Pool object that get and retrieve bytes slice
 // into different sync pool.
 func NewSizedPool(sizes ...int) Pool {
 	if len(sizes) == 0 {
