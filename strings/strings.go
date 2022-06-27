@@ -1,3 +1,4 @@
+// Package strings contains a bucket of operations of string.
 package strings
 
 import (

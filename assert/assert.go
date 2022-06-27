@@ -13,7 +13,7 @@ type tHelper interface {
 
 // T is a test interface.
 type T interface {
-	Errorf(format string, o ...interface{})
+	Fatalf(format string, o ...interface{})
 }
 
 func tostring(o interface{}) string {
@@ -28,84 +28,80 @@ func tostring(o interface{}) string {
 }
 
 // Equal asset if target is equal to wanted.
-func Equal(t T, got interface{}, want interface{}) bool {
+func Equal(t T, got interface{}, want interface{}) {
 	if !reflect.DeepEqual(got, want) {
 		if h, ok := t.(tHelper); ok {
 			h.Helper()
 		}
-		t.Errorf("\ngot:%s\nwant:%s", tostring(got), tostring(want))
-		return false
+		t.Fatalf("\ngot:%s\nwant:%s", tostring(got), tostring(want))
 	}
-	return true
 }
 
 // NotEqual assets if target is not equal to want.
-func NotEqual(t T, got interface{}, want interface{}) bool {
+func NotEqual(t T, got interface{}, want interface{}) {
 	if reflect.DeepEqual(got, want) {
 		if h, ok := t.(tHelper); ok {
 			h.Helper()
 		}
-		t.Errorf("\nshould not be: %s\n", tostring(got))
-		return false
+		t.Fatalf("\nshould not be: %s\n", tostring(got))
 	}
-	return true
 }
 
 // Nil assets target is nil.
-func Nil(t T, got interface{}) bool {
+func Nil(t T, got interface{}) {
 	if got == nil {
-		return true
+		return
 	}
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	t.Errorf("expect nil but got %s", tostring(got))
-	return false
-}
-
-// WantError assets if got is error when want is true.
-func WantError(t T, got error, want bool) bool {
-	if h, ok := t.(tHelper); ok {
-		h.Helper()
-	}
-	if want {
-		return NotNil(t, got)
-	}
-	return Nil(t, got)
+	t.Fatalf("expect nil but got %s", tostring(got))
 }
 
 // NotNil assert target is not nil.
-func NotNil(t T, got interface{}) bool {
+func NotNil(t T, got interface{}) {
 	if got != nil {
-		return true
+		return
 	}
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	t.Errorf("expect anything but got nil")
-	return false
+	t.Fatalf("expect anything but got nil")
+}
+
+// WantError assets if got is error when want is true.
+func WantError(t T, want bool, got error) {
+	if h, ok := t.(tHelper); ok {
+		h.Helper()
+	}
+	notNil := got != nil
+	if notNil != want {
+		if want {
+			t.Fatalf("expect error should not be nil: %v", got)
+		} else {
+			t.Fatalf("expect error should be nil: %v", got)
+		}
+	}
 }
 
 // True asset target is boolean true.
-func True(t T, got bool) bool {
+func True(t T, got bool) {
 	if got {
-		return true
+		return
 	}
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	t.Errorf("expect true but got false")
-	return false
+	t.Fatalf("expect true but got false")
 }
 
 // False asset target is boolean false.
-func False(t T, got bool) bool {
+func False(t T, got bool) {
 	if !got {
-		return true
+		return
 	}
 	if h, ok := t.(tHelper); ok {
 		h.Helper()
 	}
-	t.Errorf("expect false but got true")
-	return false
+	t.Fatalf("expect false but got true")
 }
