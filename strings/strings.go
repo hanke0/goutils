@@ -1,5 +1,5 @@
 // Package strings contains a bucket of operations of string.
-package strings // import "github.com/ko-han/goutils/strings"
+package strings // import "github.com/hanke0/goutils/strings"
 
 import (
 	"strings"

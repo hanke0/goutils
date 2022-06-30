@@ -1,5 +1,5 @@
 // Package set implements wild-used set container.
-package set // import "github.com/ko-han/goutils/set"
+package set // import "github.com/hanke0/goutils/set"
 
 // Set is a container that store unique elements following no order.
 type Set interface {

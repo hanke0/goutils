@@ -3,7 +3,7 @@ package strings_test
 import (
 	"testing"
 
-	"github.com/ko-han/goutils/strings"
+	"github.com/hanke0/goutils/strings"
 )
 
 func TestContains(t *testing.T) {

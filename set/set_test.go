@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/ko-han/goutils/set"
+	"github.com/hanke0/goutils/set"
 )
 
 func Test_StringSetAddDeleteContainsLen(t *testing.T) {

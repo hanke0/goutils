@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ko-han/goutils/bloomfilter"
+	"github.com/hanke0/goutils/bloomfilter"
 )
 
 func testProvider(t *testing.T, p bloomfilter.BitSet) {

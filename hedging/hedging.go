@@ -1,6 +1,6 @@
 // Package hedging provides a method to get an no-error answer from two functions.
 // It can describes as is, when A function fails or executes timeout, run B to replace it.
-package hedging // import "github.com/ko-han/goutils/hedging"
+package hedging // import "github.com/hanke0/goutils/hedging"
 
 import (
 	"sync"

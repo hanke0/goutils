@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/ko-han/goutils/assert"
+	"github.com/hanke0/goutils/assert"
 )
 
 func TestEqual(t *testing.T) {

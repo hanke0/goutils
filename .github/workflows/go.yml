@@ -24,5 +24,7 @@ jobs:
         uses: supercharge/redis-github-action@1.4.0
         with:
           redis-version: ${{ matrix.redis }}
-      - name: Test
-        run: go test -v -covermode=count -cover -coverpkg=./... ./...
+      - name: Run Test With coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic ./...
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3

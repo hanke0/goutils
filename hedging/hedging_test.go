@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ko-han/goutils/hedging"
+	"github.com/hanke0/goutils/hedging"
 )
 
 func ExampleDo() {
