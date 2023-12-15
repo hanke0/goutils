@@ -102,6 +102,20 @@ func TestFalsePositive(t *testing.T) {
 	}
 }
 
+
+func TestReset(t *testing.T) {
+	b := New(10, 2)
+	b.Add("hello")
+	b.Add("world")
+	expectTrue(t, b.MayExists("hello"))
+	expectTrue(t, b.MayExists("world"))
+	expectTrue(t, !b.MayExists("x"))
+	expectTrue(t, !b.MayExists("w"))
+	b.Reset()
+	expectTrue(t, !b.MayExists("hello"))
+	expectTrue(t, !b.MayExists("world"))
+}
+
 func BenchmarkBloom(b *testing.B) {
 	b.ReportAllocs()
 	for i := 1; i <= 10000; i = testNextLength(i) {
