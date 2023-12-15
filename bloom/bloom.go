@@ -35,6 +35,13 @@ func New(bitsPerKey, expectLength int) *Bloom {
 	}
 }
 
+// Reset resets b to initial state.
+func (b *Bloom) Reset() {
+	for i := range b.filter {
+		b.filter[i] = 0
+	}
+}
+
 func unsafeToBytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&s))
 }
